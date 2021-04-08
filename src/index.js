@@ -22,22 +22,25 @@ class App extends React.Component {
   };
 
   onDragEnd = result => {
+
+
     //TODO
     this.setState({
       homeIndex: null,
     });
-    const {destination, source, draggableId} = result;
+    const {destination, source, draggableId, combine} = result;
 
-    if (!destination){
+    if ( !combine && !destination){
       return;
     }
 
     //user droppable'i basladigi yere geri birakti
-    if(destination.droppableId === source.droppableId &&
+    if( !combine && destination.droppableId === source.droppableId &&
       destination.index === source.index){
         return;
       }
-
+      //console.log("combine burada geldi mi: "+combine);
+      //debugger;
     //******Listeyi reorder yapiyor******
     //bunu if start==finish seklince yazmak gerekiyor
     //   const column = this.state.columns[source.droppableId];
@@ -65,31 +68,52 @@ class App extends React.Component {
 
     //******bir listeden digerine gecis******
       const start = this.state.columns[source.droppableId];
-      const finish = this.state.columns[destination.droppableId];
+      //finish bir droppable degil draggable olacak
+      //const finish = this.state.columns[destination.droppableId];
+      const finish = this.state.columns[combine.droppableId];
+      // if(result.combine){
+      //   const items = Array.from(start.taskIds);
+      //   items.splice(result.source.index,1);
+      //   this.setState({ items });
+      //   return;
+      // }
+      console.log("BURAYA GELDI MI");
+      console.log("combine" +combine);
+      console.log("destination: "+destination);
+      if(combine){
+        console.log("buraya girdi mi combine if icerisinde");
+        const combineTaskIds = Array.from(start.taskIds);
+        combineTaskIds.splice(source.index,1);
+        const newColumn = {
+          ...start,
+          taskIds: combineTaskIds,
+        };
+        this.setState(prevState => ({...prevState, columns: {...prevState.columns, [newColumn.id]: newColumn}}));
+      }
 
-      const startTaskIds = Array.from(start.taskIds);
-      startTaskIds.splice(source.index,1);
-      const newStart = {
-        ...start,
-        taskIds: startTaskIds,
-      };
+      // const startTaskIds = Array.from(start.taskIds);
+      // startTaskIds.splice(source.index,1);
+      // const newStart = {
+      //   ...start,
+      //   taskIds: startTaskIds,
+      // };
 
-      const finishTaskIds = Array.from(finish.taskIds);
-      finishTaskIds.splice(destination.index,0,draggableId);
-      const newFinish = {
-        ...finish,
-        taskIds: finishTaskIds,
-      };
+      // const finishTaskIds = Array.from(finish.taskIds);
+      // finishTaskIds.splice(destination.index,0,draggableId);
+      // const newFinish = {
+      //   ...finish,
+      //   taskIds: finishTaskIds,
+      // };
 
-      const newState = {
-        ...this.state,
-        columns: {
-          ...this.state.columns,
-          [newStart.id]: newStart,
-          [newFinish.id]: newFinish,
-        },
-      };
-      this.setState(newState);
+      // const newState = {
+      //   ...this.state,
+      //   columns: {
+      //     ...this.state.columns,
+      //     [newStart.id]: newStart,
+      //     [newFinish.id]: newFinish,
+      //   },
+      // };
+      // this.setState(newState);
       return;
 
      };

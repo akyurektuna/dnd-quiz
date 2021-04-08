@@ -31,6 +31,7 @@ export default class Task extends React.Component {
             draggableId={this.props.task.id} 
             index={this.props.index}
             isDragDisabled={isDragDisabled}
+            isCombineEnabled={this.props.isCombineEnabled}
             >
             {(provided, snapshot) => (
                 <Container

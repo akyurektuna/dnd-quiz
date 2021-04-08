@@ -39,6 +39,7 @@ class InnerList extends React.Component{
 
 export default class Column extends React.Component {
     render() {
+        console.log("combine column icinde nasil duruyo: "+ this.props.isCombineEnabled);
         return (
             <Container>
                 <Title> {this.props.column.title}</Title>
@@ -46,6 +47,7 @@ export default class Column extends React.Component {
                     droppableId={this.props.column.id}
                     isDropDisabled={this.props.isDropDisabled}
                     //1. column a drop yapilamasin
+                    isCombineEnabled
                     >
                     
                     {(provided, snapshot) => (
