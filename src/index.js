@@ -33,14 +33,12 @@ class App extends React.Component {
     if ( !combine && !destination){
       return;
     }
-
     //user droppable'i basladigi yere geri birakti
     if( !combine && destination.droppableId === source.droppableId &&
       destination.index === source.index){
         return;
       }
-      //console.log("combine burada geldi mi: "+combine);
-      //debugger;
+
     //******Listeyi reorder yapiyor******
     //bunu if start==finish seklince yazmak gerekiyor
     //   const column = this.state.columns[source.droppableId];
@@ -68,22 +66,20 @@ class App extends React.Component {
 
     //******bir listeden digerine gecis******
       const start = this.state.columns[source.droppableId];
-      //finish bir droppable degil draggable olacak
-      //const finish = this.state.columns[destination.droppableId];
       const finish = this.state.columns[combine.droppableId];
-      // if(result.combine){
-      //   const items = Array.from(start.taskIds);
-      //   items.splice(result.source.index,1);
-      //   this.setState({ items });
-      //   return;
-      // }
-      console.log("BURAYA GELDI MI");
-      console.log("combine" +combine);
-      console.log("destination: "+destination);
+
       if(combine){
-        console.log("buraya girdi mi combine if icerisinde");
         const combineTaskIds = Array.from(start.taskIds);
-        combineTaskIds.splice(source.index,1);
+        // icindeki text: this.state.tasks[eleman].content
+        var eleman = combineTaskIds[source.index];
+        var textLeft = this.state.tasks[eleman].content;
+        
+        var eleman2 = combine.draggableId;
+        this.state.tasks[eleman2].altContent = textLeft;
+        //this.state.tasks.indexOf(eleman2).altContent = textLeft;
+        //this.state.eleman2.altContent = textLeft;
+        //combineTaskIds.splice(source.index,1);
+        //soldakini silmek yerine, sagdaki combine edilen elemanin altına bir text ekle
         const newColumn = {
           ...start,
           taskIds: combineTaskIds,

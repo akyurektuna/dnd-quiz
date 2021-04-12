@@ -39,7 +39,6 @@ class InnerList extends React.Component{
 
 export default class Column extends React.Component {
     render() {
-        console.log("combine column icinde nasil duruyo: "+ this.props.isCombineEnabled);
         return (
             <Container>
                 <Title> {this.props.column.title}</Title>

@@ -15,6 +15,12 @@ const Container = styled.div`
 `;
 //task contenti bu container icerisinde wrap ediyoruz
 
+const Answer = styled.div`
+    width: 20px;
+    height: 20px;
+    textAlign: right;
+`;
+
 const Handle = styled.div`
     width: 20px;
     height: 20px;
@@ -25,6 +31,7 @@ const Handle = styled.div`
 //drag handle artık handle componenti olacak (container yerine)
 export default class Task extends React.Component {
     render() {
+        //dragdisabled durumunu ikinci listedeki tum elemanlar icin yap
         const isDragDisabled = this.props.task.id === 'task-4';
         return(
         <Draggable 
@@ -40,8 +47,9 @@ export default class Task extends React.Component {
                     ref={provided.innerRef}
                     isDragging={snapshot.isDragging}
                 >
-                    <Handle {...provided.dragHandleProps} />
+                    <Handle {...provided.dragHandleProps}/>
                     {this.props.task.content}
+                    <Answer> {this.props.task.altContent} </Answer>
                 </Container>
             )}
             
