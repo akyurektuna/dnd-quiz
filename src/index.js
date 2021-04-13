@@ -12,10 +12,10 @@ const Container = styled.div`
 
 class App extends React.Component {
   state = initialData;
-
+  
   onDragStart = start => {
     const homeIndex = this.state.columnOrder.indexOf(start.source.droppableId);
-
+    
     this.setState({
       homeIndex,
     });
@@ -118,6 +118,11 @@ class App extends React.Component {
   //DragDropContext'te 3 adet callback var
   //ondragend,ondragstart,ondragupdate
   render() {
+    //const isDragDisabled = this.props.task.id === 'task-4';
+    //console.log("index icinde "+ this.state.tasks);
+    console.log("index "+this.state.columns);
+    //console.log("columns array 1. eleman "+this.props.columns[0]);
+
     return (
       <DragDropContext 
       onDragStart={this.onDragStart}

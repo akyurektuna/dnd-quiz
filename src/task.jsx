@@ -21,13 +21,13 @@ const Answer = styled.div`
     textAlign: right;
 `;
 
-const Handle = styled.div`
-    width: 20px;
-    height: 20px;
-    background-color: plum;
-    border-radius: 4px;
-    margin-right: 8px;
-`; 
+// const Handle = styled.div`
+//     width: 20px;
+//     height: 20px;
+//     background-color: plum;
+//     border-radius: 4px;
+//     margin-right: 8px;
+// `; 
 //drag handle artık handle componenti olacak (container yerine)
 export default class Task extends React.Component {
     render() {
@@ -43,11 +43,11 @@ export default class Task extends React.Component {
             {(provided, snapshot) => (
                 <Container
                     {...provided.draggableProps}
-                    //{...provided.dragHandleProps}
+                    {...provided.dragHandleProps}
                     ref={provided.innerRef}
                     isDragging={snapshot.isDragging}
                 >
-                    <Handle {...provided.dragHandleProps}/>
+                    {/* <Handle {...provided.dragHandleProps}/> */}
                     {this.props.task.content}
                     <Answer> {this.props.task.altContent} </Answer>
                 </Container>
