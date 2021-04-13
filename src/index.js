@@ -65,10 +65,11 @@ class App extends React.Component {
 
 
     //******bir listeden digerine gecis******
-      const start = this.state.columns[source.droppableId];
-      const finish = this.state.columns[combine.droppableId];
+
 
       if(combine){
+        const start = this.state.columns[source.droppableId];
+        const finish = this.state.columns[combine.droppableId];
         const combineTaskIds = Array.from(start.taskIds);
         // icindeki text: this.state.tasks[eleman].content
         var eleman = combineTaskIds[source.index];
