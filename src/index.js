@@ -12,7 +12,21 @@ const Container = styled.div`
 
 class App extends React.Component {
   state = initialData;
+  //burada column al
+  //columnIki = Array.from(this.state.columns["column-2"].taskIds);
+  //columnIki.forEach(element => element.isDragDisabled=true);
+
   
+  constructor(props){
+    super(props);
+    const columnIki = Array.from(this.state.columns["column-2"].taskIds);
+    columnIki.forEach(element => this.state.tasks[element].isDragDisabled=true);
+    columnIki.forEach(element => console.log(element));
+    console.log("******");
+
+  }
+
+
   onDragStart = start => {
     const homeIndex = this.state.columnOrder.indexOf(start.source.droppableId);
     
@@ -77,9 +91,6 @@ class App extends React.Component {
         
         var eleman2 = combine.draggableId;
         this.state.tasks[eleman2].altContent = textLeft;
-        //this.state.tasks.indexOf(eleman2).altContent = textLeft;
-        //this.state.eleman2.altContent = textLeft;
-        //combineTaskIds.splice(source.index,1);
         //soldakini silmek yerine, sagdaki combine edilen elemanin altına bir text ekle
         const newColumn = {
           ...start,
@@ -119,10 +130,7 @@ class App extends React.Component {
   //ondragend,ondragstart,ondragupdate
   render() {
     //const isDragDisabled = this.props.task.id === 'task-4';
-    //console.log("index icinde "+ this.state.tasks);
-    console.log("index "+this.state.columns);
-    //console.log("columns array 1. eleman "+this.props.columns[0]);
-
+    
     return (
       <DragDropContext 
       onDragStart={this.onDragStart}

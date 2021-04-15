@@ -32,7 +32,8 @@ const Answer = styled.div`
 export default class Task extends React.Component {
     render() {
         //dragdisabled durumunu ikinci listedeki tum elemanlar icin yap
-        const isDragDisabled = this.props.task.id === 'task-4';
+        const isDragDisabled = this.props.task.id >= 'task-4';
+
         return(
         <Draggable 
             draggableId={this.props.task.id} 
