@@ -1,10 +1,10 @@
 const initialData = {
     tasks: {
-        'task-1': { id: 'task-1', content: 'bir',altContent:'' },
-        'task-2': { id: 'task-2', content: 'iki',altContent:''},
-        'task-3': { id: 'task-3', content: 'uc', altContent:''},
-        'task-4': { id: 'task-4', content: 'liste 2nin ilk elemani liste 2nin ilk elemani liste 2nin ilk elemani', altContent:''},
-        'task-5': { id: 'task-5', content: 'liste 2nin ikinci elemani', altContent: ''}
+        'task-1': { id: 'task-1', content: 'bir',altContent:'' , whichColumn:'1' },
+        'task-2': { id: 'task-2', content: 'iki',altContent:'',whichColumn:'1'},
+        'task-3': { id: 'task-3', content: 'uc', altContent:'',whichColumn:'1'},
+        'task-4': { id: 'task-4', content: 'liste 2nin ilk elemani liste 2nin ilk elemani liste 2nin ilk elemani', altContent:'',whichColumn:'2'},
+        'task-5': { id: 'task-5', content: 'liste 2nin ikinci elemani', altContent: '',whichColumn:'2'}
     },
     //task_id key olarak kullaniliyor
     columns: {

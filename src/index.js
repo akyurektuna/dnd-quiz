@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { DragDropContext } from 'react-beautiful-dnd';
 import initialData from './initial-data';
 import Column from './column';
+import Task from './task';
 
 const Container = styled.div`
   display: flex;
@@ -16,13 +17,13 @@ class App extends React.Component {
   //columnIki = Array.from(this.state.columns["column-2"].taskIds);
   //columnIki.forEach(element => element.isDragDisabled=true);
 
-  
   constructor(props){
     super(props);
     const columnIki = Array.from(this.state.columns["column-2"].taskIds);
     columnIki.forEach(element => this.state.tasks[element].isDragDisabled=true);
-    columnIki.forEach(element => console.log(element));
-    console.log("******");
+    
+    //columnIki.forEach(element => console.log(element));
+    //console.log("******");
 
   }
 
@@ -130,7 +131,7 @@ class App extends React.Component {
   //ondragend,ondragstart,ondragupdate
   render() {
     //const isDragDisabled = this.props.task.id === 'task-4';
-    
+    const columnIki = Array.from(this.state.columns["column-2"].taskIds);
     return (
       <DragDropContext 
       onDragStart={this.onDragStart}
