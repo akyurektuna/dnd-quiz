@@ -19,6 +19,7 @@ const Answer = styled.div`
     width: 20px;
     height: 20px;
     textAlign: right;
+    color: blue;
 `;
 
 // const Handle = styled.div`
