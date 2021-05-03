@@ -14,30 +14,32 @@ const Container = styled.div`
 class App extends React.Component {
 
   state = initialData;
-  // state = {
-  //   isActive: false
-  //   //active oldugunda listeler gozuksun olmadiginda butonlar
-  // };
 
-  handleShow = () => {
-    this.setState({ isActive: true });
+  componentDidMount(){
+    let Self = this;
+    window.receiveMessageFromIndex = function(event){
+      if(event!=undefined){
+        console.log('react icinde event data: ',event.data);
+      }
+    }
+    windoes.addEventListener("message",receiveMessageFromIndex,false);
   };
 
-  handleHide = () => {
-    this.setState({ isActive: false });
-  };
-
-  quizOne = one => {
-    this.setState({ isActive: false });
-  };
-
+  // receiveMssage = (event: any) =>{
+  //   const message = event.data.message;
+  //   console.log(message);
+  //   switch(message){
+  //     case 'getAppData':
+  //       console.log(event.data.value);
+  //       break;
+  //   }
+  //}
   constructor(props) {
     super(props);
     const columnIki = Array.from(this.state.columns["column-2"].taskIds);
     columnIki.forEach(element => this.state.tasks[element].isDragDisabled = true);
 
   }
-
 
   onDragStart = start => {
     const homeIndex = this.state.columnOrder.indexOf(start.source.droppableId);
@@ -94,26 +96,16 @@ class App extends React.Component {
       <DragDropContext
         onDragStart={this.onDragStart}
         onDragEnd={this.onDragEnd}>
+        <Container>
+          {this.state.columnOrder.map((columnId, index) => {
+            const column = this.state.columns[columnId];
+            const tasks = column.taskIds.map(taskId => this.state.tasks[taskId]);
 
-          {this.state.isActive ? (
-                    <Container>
-                    {this.state.columnOrder.map((columnId, index) => {
-                      const column = this.state.columns[columnId];
-                      const tasks = column.taskIds.map(taskId => this.state.tasks[taskId]);
-          
-                      const isDropDisabled = index <= this.state.homeIndex;
-                      return <Column key={column.id} column={column} tasks={tasks} isDropDisabled={isDropDisabled} />;
-                    })}
-                    </Container>
-          ): (
-            <div>
-          <button onClick={this.handleShow}>Combine Quiz</button>
-          <button onClick={this.handleShow}>Reorder Quiz</button>
-          </div>
-          )}
-          
-
-        
+            const isDropDisabled = index <= this.state.homeIndex;
+            return <Column key={column.id} column={column} tasks={tasks} isDropDisabled={isDropDisabled} />;
+          })}
+        </Container>
+          )
       </DragDropContext>
 
     );
