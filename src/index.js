@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { DragDropContext } from 'react-beautiful-dnd';
 import initialData from './initial-data';
 import Column from './column';
-import { useState } from 'react';
+//import { useState } from 'react';
 
 const Container = styled.div`
   display: flex;
@@ -16,13 +16,15 @@ class App extends React.Component {
   state = initialData;
 
   componentDidMount(){
-    let Self = this;
+    //let Self = this;
     window.receiveMessageFromIndex = function(event){
-      if(event!=undefined){
+      console.log("*****react icinde event geldi mi: ");
+      console.log(event);
+      if(event!==undefined){
         console.log('react icinde event data: ',event.data);
       }
     }
-    windoes.addEventListener("message",receiveMessageFromIndex,false);
+    //window.addEventListener("message",receiveMessageFromIndex,false);
   };
 
   // receiveMssage = (event: any) =>{
@@ -54,7 +56,7 @@ class App extends React.Component {
     this.setState({
       homeIndex: null,
     });
-    const { destination, source, draggableId, combine } = result;
+    const { destination, source, combine } = result;
 
     if (!combine && !destination) {
       return;
@@ -68,7 +70,7 @@ class App extends React.Component {
     //******bir listeden digerine gecis******
     if (combine) {
       const start = this.state.columns[source.droppableId];
-      const finish = this.state.columns[combine.droppableId];
+      //const finish = this.state.columns[combine.droppableId];
       const combineTaskIds = Array.from(start.taskIds);
       // icindeki text: this.state.tasks[eleman].content
       var eleman = combineTaskIds[source.index];
@@ -91,7 +93,7 @@ class App extends React.Component {
   //DragDropContext'te 3 adet callback var
   //ondragend,ondragstart,ondragupdate
   render() {
-    const columnIki = Array.from(this.state.columns["column-2"].taskIds);
+    //const columnIki = Array.from(this.state.columns["column-2"].taskIds);
     return (
       <DragDropContext
         onDragStart={this.onDragStart}
@@ -105,7 +107,6 @@ class App extends React.Component {
             return <Column key={column.id} column={column} tasks={tasks} isDropDisabled={isDropDisabled} />;
           })}
         </Container>
-          )
       </DragDropContext>
 
     );
