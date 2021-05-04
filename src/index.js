@@ -15,27 +15,37 @@ class App extends React.Component {
 
   state = initialData;
 
-  componentDidMount(){
-    //let Self = this;
-    window.receiveMessageFromIndex = function(event){
-      console.log("*****react icinde event geldi mi: ");
-      console.log(event);
-      if(event!==undefined){
-        console.log('react icinde event data: ',event.data);
-      }
-    }
-    //window.addEventListener("message",receiveMessageFromIndex,false);
-  };
-
-  // receiveMssage = (event: any) =>{
-  //   const message = event.data.message;
-  //   console.log(message);
-  //   switch(message){
-  //     case 'getAppData':
-  //       console.log(event.data.value);
-  //       break;
+  // componentDidMount(){
+  //   //let Self = this;
+  //   console.log("su an burda");
+  //   window.receiveMessageFromIndex = function(event){
+  //     console.log("*****react icinde event geldi mi: ");
+  //     console.log(event);
+  //     if(event!==undefined){
+  //       console.log('react icinde event data: ',event.data);
+  //     }
   //   }
-  //}
+  //   //window.addEventListener("message",receiveMessageFromIndex,false);
+  // };
+  componentDidMount() {
+    window.addEventListener("message", this.receiveMessage, false);
+    
+  }
+
+  receiveMessage = (event) => {
+    const message = event.data.message;
+
+    switch (message) {
+      case 'getAppData':
+        console.log("*****react icinde event geldi mi: ");
+        console.log(event.data.value);
+        this.ToDoSomethingInVSCWebview(event.data.value);
+        break;
+    }
+    
+  }
+
+
   constructor(props) {
     super(props);
     const columnIki = Array.from(this.state.columns["column-2"].taskIds);
@@ -93,7 +103,7 @@ class App extends React.Component {
   //DragDropContext'te 3 adet callback var
   //ondragend,ondragstart,ondragupdate
   render() {
-    //const columnIki = Array.from(this.state.columns["column-2"].taskIds);
+    const columnIki = Array.from(this.state.columns["column-2"].taskIds);
     return (
       <DragDropContext
         onDragStart={this.onDragStart}
