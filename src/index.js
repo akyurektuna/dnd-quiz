@@ -16,7 +16,9 @@ class App extends React.Component {
   state = initialData;
 
   componentDidMount() {
+    console.log("componentdidMount icinde");
     window.addEventListener('message', this.handleIframeTask);
+    console.log("componentdidMount icinde????? event listener sonrasi");
   }
   handleIframeTask = (e) => {
     // if (e.origin !== 'https://localhost:3000/') {
