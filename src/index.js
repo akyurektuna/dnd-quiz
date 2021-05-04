@@ -80,7 +80,7 @@ class App extends React.Component {
     if (e.origin !== 'https://localhost:3000/') {
       return;
     }
-    if (e.data === 'submitted form') {
+    if (e.data === 'message') {
       console.log("react icinde handleIframe");
       // this.setState({
       //   activeStep: 3,
