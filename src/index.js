@@ -15,37 +15,20 @@ class App extends React.Component {
 
   state = initialData;
 
-  // componentDidMount(){
-  //   //let Self = this;
-  //   console.log("su an burda");
-  //   window.receiveMessageFromIndex = function(event){
-  //     console.log("*****react icinde event geldi mi: ");
-  //     console.log(event);
-  //     if(event!==undefined){
-  //       console.log('react icinde event data: ',event.data);
-  //     }
-  //   }
-  //   //window.addEventListener("message",receiveMessageFromIndex,false);
-  // };
   componentDidMount() {
-    window.addEventListener("message", this.receiveMessage, false);
-    console.log("index.jsde componentdidMount");  
+    window.addEventListener('message', this.handleIframeTask);
   }
-
-  receiveMessage = (event) => {
-    const message = event.data.message;
-    console.log("index.jsde receiveMessage icinde");
-    switch (message) {
-      case 'getAppData':
-        console.log("*****react icinde event geldi mi: ");
-        console.log(event.data.value);
-        this.ToDoSomethingInVSCWebview(event.data.value);
-        break;
+  handleIframeTask = (e) => {
+    // if (e.origin !== 'https://localhost:3000/') {
+    //   return;
+    // }
+    if (e.data === 'submitted form') {
+      console.log("react icinde handleIframe");
+      // this.setState({
+      //   activeStep: 3,
+      // });
     }
-    
-  }
-
-
+  };
   constructor(props) {
     super(props);
     const columnIki = Array.from(this.state.columns["column-2"].taskIds);
