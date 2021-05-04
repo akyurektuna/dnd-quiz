@@ -21,9 +21,11 @@ class App extends React.Component {
     console.log("componentdidMount icinde????? event listener sonrasi");
   }
   handleIframeTask = (e) => {
-    // if (e.origin !== 'https://localhost:3000/') {
-    //   return;
-    // }
+    console.log("index.js icinde handleIframe");
+    console.log(e.origin);
+    if (e.origin !== 'https://localhost:3000/') {
+      return;
+    }
     if (e.data === 'submitted form') {
       console.log("react icinde handleIframe");
       // this.setState({
