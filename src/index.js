@@ -29,12 +29,12 @@ class App extends React.Component {
   // };
   componentDidMount() {
     window.addEventListener("message", this.receiveMessage, false);
-    
+    console.log("index.jsde componentdidMount");  
   }
 
   receiveMessage = (event) => {
     const message = event.data.message;
-
+    console.log("index.jsde receiveMessage icinde");
     switch (message) {
       case 'getAppData':
         console.log("*****react icinde event geldi mi: ");
