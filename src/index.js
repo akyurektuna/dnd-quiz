@@ -69,11 +69,8 @@ class App extends React.Component {
     return;
 
   };
-  componentDidMount() {
-    console.log("componentdidMount icinde");
-    window.addEventListener('message', this.handleIframeTask);
-    console.log("componentdidMount icinde????? event listener sonrasi");
-  }
+  
+
   handleIframeTask = (e) => {
     console.log("index.js icinde handleIframe");
     console.log(e.origin);
@@ -86,7 +83,12 @@ class App extends React.Component {
       //   activeStep: 3,
       // });
     }
-  };
+  }
+  componentDidMount() {
+    console.log("componentdidMount icinde");
+    window.addEventListener('message', this.handleIframeTask);
+    console.log("componentdidMount icinde????? event listener sonrasi");
+  }
 
   //DragDropContext'te 3 adet callback var
   //ondragend,ondragstart,ondragupdate
