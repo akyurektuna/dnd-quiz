@@ -15,6 +15,25 @@ class App extends React.Component {
 
   state = initialData;
 
+  componentDidMount() {
+    console.log("componentdidMount icinde");
+    window.addEventListener('message', this.handleIframeTask);
+    console.log("componentdidMount icinde????? event listener sonrasi");
+  };
+
+  handleIframeTask = (e) => {
+    console.log("index.js icinde handleIframe");
+    console.log(e.origin);
+    if (e.origin !== 'https://localhost:3000/') {
+      return;
+    }
+    if (e.data === 'message') {
+      console.log("react icinde handleIframe");
+      // this.setState({
+      //   activeStep: 3,
+      // });
+    }
+  };
 
   constructor(props) {
     super(props);
@@ -70,26 +89,6 @@ class App extends React.Component {
 
   };
   
-
-  handleIframeTask = (e) => {
-    console.log("index.js icinde handleIframe");
-    console.log(e.origin);
-    if (e.origin !== 'https://localhost:3000/') {
-      return;
-    }
-    if (e.data === 'message') {
-      console.log("react icinde handleIframe");
-      // this.setState({
-      //   activeStep: 3,
-      // });
-    }
-  }
-  componentDidMount() {
-    console.log("componentdidMount icinde");
-    window.addEventListener('message', this.handleIframeTask);
-    console.log("componentdidMount icinde????? event listener sonrasi");
-  }
-
   //DragDropContext'te 3 adet callback var
   //ondragend,ondragstart,ondragupdate
   render() {
