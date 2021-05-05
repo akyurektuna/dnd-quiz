@@ -17,17 +17,18 @@ class App extends React.Component {
 
   componentDidMount() {
     console.log("componentdidMount icinde");
-    window.addEventListener('message', this.handleIframeTask());
+    window.addEventListener('message', this.handleIframeTask);
     //this.handleIframeTask();
     console.log("componentdidMount icinde????? event listener sonrasi");
   };
 
+
   handleIframeTask = (e) => {
     console.log("index.js icinde handleIframe");
-    console.log(e.origin);
-    if (e.origin !== 'https://localhost:3000/') {
-      return;
-    }
+    // console.log(e.origin);
+    // if (e.origin !== 'https://localhost:3000/') {
+    //   return;
+    // }
     if (e.data === 'message') {
       console.log("react icinde handleIframe");
       // this.setState({
