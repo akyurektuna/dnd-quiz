@@ -18,7 +18,11 @@ class App extends React.Component {
   componentDidMount() {
     console.log("componentdidMount icinde");
     window.addEventListener('message', this.handleIframeTask);
-    console.log(this.handleIframeTask);
+    //console.log(this.handleIframeTask);
+    console.log("******************");
+    window.addEventListener('message', (event) => {
+      console.log(`Received message: ${event.data}`);
+    });
     //this.handleIframeTask();
     console.log("componentdidMount icinde????? event listener sonrasi");
   };
