@@ -15,18 +15,38 @@ class App extends React.Component {
 
   state = initialData;
 
+//    displayMessage = (evt) => {
+//   var message;
+//   if (evt.origin !== "https://elegant-blackwell-70ddb5.netlify.app") {
+//     message = "You are not worthy";
+//   }
+//   else {
+//     message = "I got " + evt.data + " from " + evt.origin;
+//   }
+//   document.getElementById("received-message").innerHTML = message;
+// }
+// if (window.addEventListener) {
+//   // For standards-compliant web browsers
+//   window.addEventListener("message", displayMessage, false);
+// }
+// else {
+
+//   window.attachEvent("onmessage", displayMessage);
+
+// }
+
+
   componentDidMount() {
+    window.addEventListener("message", this.handleIframeTask, false);
     console.log("componentdidMount icinde");
-    window.addEventListener('message', this.handleIframeTask);
     //console.log(this.handleIframeTask);
     console.log("******************");
-    window.addEventListener('message', (event) => {
-      console.log(`Received message: ${event.data}`);
-    });
+
     //this.handleIframeTask();
     console.log("componentdidMount icinde????? event listener sonrasi");
   };
 
+  
 
   handleIframeTask = (e) => {
     console.log("index.js icinde handleIframe");
