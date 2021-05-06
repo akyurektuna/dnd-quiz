@@ -35,7 +35,15 @@ class App extends React.Component {
 
 // }
 
+componentDidMount() {
+  window.addEventListener("message", this.handleIframeTask.bind(this), false);
+  console.log("componentdidMount icinde");
+  //console.log(this.handleIframeTask);
+  console.log("******************");
 
+  //this.handleIframeTask();
+  console.log("componentdidMount icinde????? event listener sonrasi");
+};
 
   handleIframeTask = (e) => {
     console.log("index.js icinde handleIframe");
@@ -50,15 +58,7 @@ class App extends React.Component {
       // });
     }
   };
-  componentDidMount() {
-    window.addEventListener("message", this.handleIframeTask, false);
-    console.log("componentdidMount icinde");
-    //console.log(this.handleIframeTask);
-    console.log("******************");
 
-    //this.handleIframeTask();
-    console.log("componentdidMount icinde????? event listener sonrasi");
-  };
 
   constructor(props) {
     super(props);
