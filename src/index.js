@@ -12,60 +12,30 @@ const Container = styled.div`
 `;
 
 class App extends React.Component {
-
   state = initialData;
-
-//    displayMessage = (evt) => {
-//   var message;
-//   if (evt.origin !== "https://elegant-blackwell-70ddb5.netlify.app") {
-//     message = "You are not worthy";
-//   }
-//   else {
-//     message = "I got " + evt.data + " from " + evt.origin;
-//   }
-//   document.getElementById("received-message").innerHTML = message;
-// }
-// if (window.addEventListener) {
-//   // For standards-compliant web browsers
-//   window.addEventListener("message", displayMessage, false);
-// }
-// else {
-
-//   window.attachEvent("onmessage", displayMessage);
-
-// }
-
-componentDidMount() {
-  window.addEventListener("message", this.handleIframeTask.bind(this), false);
-  console.log("componentdidMount icinde");
-  //console.log(this.handleIframeTask);
-  console.log("******************");
-
-  //this.handleIframeTask();
-  console.log("componentdidMount icinde????? event listener sonrasi");
-};
-
-  handleIframeTask = (e) => {
-    console.log("index.js icinde handleIframe");
-    // console.log(e.origin);
-    // if (e.origin !== 'https://localhost:3000/') {
-    //   return;
-    // }
-    if (e.data === 'message') {
-      console.log("react icinde handleIframe");
-      // this.setState({
-      //   activeStep: 3,
-      // });
-    }
-  };
-
-
   constructor(props) {
     super(props);
     const columnIki = Array.from(this.state.columns["column-2"].taskIds);
     columnIki.forEach(element => this.state.tasks[element].isDragDisabled = true);
 
   }
+
+componentDidMount() {
+  window.addEventListener("message", this.handleIframeTask.bind(this), false);
+};
+
+  handleIframeTask = (e) => {
+    console.log("index.js icinde handleIframe");
+     console.log(e.origin);
+     if (e.origin !== 'https://elegant-blackwell-70ddb5.netlify.app/') {
+       return;
+     }
+     console.log("e.data: "+e.data);
+    if (e.data === 'message') {
+      console.log("react icinde handleIframe");
+      console.log("e.data: "+e.data);
+    }
+  };
 
   onDragStart = start => {
     const homeIndex = this.state.columnOrder.indexOf(start.source.droppableId);
