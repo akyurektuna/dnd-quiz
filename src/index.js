@@ -27,6 +27,7 @@ componentDidMount() {
   handleIframeTask = (e) => {
     console.log("index.js icinde handleIframe");
      console.log(e.origin);
+     console.log("e.data: "+e.data);
      if (e.origin !== 'https://elegant-blackwell-70ddb5.netlify.app/') {
        return;
      }
