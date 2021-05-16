@@ -35,7 +35,7 @@ componentDidMount() {
      console.log("e.data: "+e.data);
      console.log("*****"+JSON.stringify(e.data));
      //{"quizType":"Reorder","firstinputs":"liste1 elemanlar","secondinputs":"liste2 elemanlar"}
-    var eventDataArr = str.split(",");
+    var eventDataArr = JSON.stringify(e.data).split(",");
     console.log(eventDataArr);
     
      if (e.data === 'message') {
