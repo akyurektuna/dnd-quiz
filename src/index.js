@@ -34,6 +34,10 @@ componentDidMount() {
     console.log("e.data array len: "+eventDataArr.length);
     const quizType = eventDataArr[0].split(':')[1];
     console.log(quizType);
+    const liste1 = eventDataArr[1].split(':')[1];
+    console.log(liste1);
+    const liste2 = eventDataArr[2].split(':')[1];
+    console.log(liste2);
 
     if (e.origin !== 'https://elegant-blackwell-70ddb5.netlify.app/') {
        return;
