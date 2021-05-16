@@ -32,7 +32,7 @@ componentDidMount() {
     //{"quizType":"Reorder","firstinputs":"liste1 elemanlar","secondinputs":"liste2 elemanlar"}
     var eventDataArr = JSON.stringify(e.data).split(",");
     console.log("e.data array len: "+eventDataArr.length);
-    const quizType = eventDataArr[0].split(':')[1];
+    const quizType = eventDataArr[0].split(':')[1].substring(1,eventDataArr[0].split(':')[1].length-1);
     console.log(quizType);
     const liste1 = eventDataArr[1].split(':')[1];
     console.log(liste1);
