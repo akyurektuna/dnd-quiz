@@ -31,7 +31,7 @@ componentDidMount() {
     console.log("*****"+JSON.stringify(e.data));
     //{"quizType":"Reorder","firstinputs":"liste1 elemanlar","secondinputs":"liste2 elemanlar"}
     var eventDataArr = JSON.stringify(e.data).split(",");
-    console.log("e.data array: "+eventDataArr);
+    console.log("e.data array len: "+eventDataArr.length);
 
     if (e.origin !== 'https://elegant-blackwell-70ddb5.netlify.app/') {
        return;
