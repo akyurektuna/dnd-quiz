@@ -26,18 +26,17 @@ componentDidMount() {
 
   handleIframeTask = (e) => {
     console.log("index.js icinde handleIframe");
-     console.log(e.origin);
-     console.log("e.data: "+e.data);
-     console.log("*****"+JSON.stringify(e.data));
-     if (e.origin !== 'https://elegant-blackwell-70ddb5.netlify.app/') {
-       return;
-     }
-     console.log("e.data: "+e.data);
-     console.log("*****"+JSON.stringify(e.data));
-     //{"quizType":"Reorder","firstinputs":"liste1 elemanlar","secondinputs":"liste2 elemanlar"}
+    console.log(e.origin);
+    console.log("e.data: "+e.data);
+    console.log("*****"+JSON.stringify(e.data));
+    //{"quizType":"Reorder","firstinputs":"liste1 elemanlar","secondinputs":"liste2 elemanlar"}
     var eventDataArr = JSON.stringify(e.data).split(",");
     console.log("e.data array: "+eventDataArr);
-    
+
+    if (e.origin !== 'https://elegant-blackwell-70ddb5.netlify.app/') {
+       return;
+     }
+
      if (e.data === 'message') {
       console.log("react icinde handleIframe");
       console.log("e.data: "+e.data);
