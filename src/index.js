@@ -28,6 +28,7 @@ componentDidMount() {
     console.log("index.js icinde handleIframe");
      console.log(e.origin);
      console.log("e.data: "+e.data);
+     console.log("*****"+JSON.stringify(e.data));
      if (e.origin !== 'https://elegant-blackwell-70ddb5.netlify.app/') {
        return;
      }
