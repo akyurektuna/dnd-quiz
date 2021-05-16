@@ -34,7 +34,11 @@ componentDidMount() {
      }
      console.log("e.data: "+e.data);
      console.log("*****"+JSON.stringify(e.data));
-    if (e.data === 'message') {
+     //{"quizType":"Reorder","firstinputs":"liste1 elemanlar","secondinputs":"liste2 elemanlar"}
+    var eventDataArr = str.split(",");
+    console.log(eventDataArr);
+    
+     if (e.data === 'message') {
       console.log("react icinde handleIframe");
       console.log("e.data: "+e.data);
     }
