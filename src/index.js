@@ -146,7 +146,9 @@ class App extends React.Component {
 
     console.log("handleiframe****");
     console.log("Iframe data: "+ JSON.stringify(initialDataFromIframe));
-    React.state = initialDataFromIframe;
+    this.setState({
+      state: initialDataFromIframe,
+    });
 
     if (e.origin !== 'https://elegant-blackwell-70ddb5.netlify.app/') {
       return;
