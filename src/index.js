@@ -70,9 +70,8 @@ class App extends React.Component {
         },
         columnOrder: ['column-1', 'column-2'],
       };
-      this.setState({
-        state: initialDataFromIframe,
-      });
+      this.state = initialDataFromIframe;
+      console.log("**");
     }
 
     const columnIki = Array.from(this.state.columns["column-2"].taskIds);
@@ -148,9 +147,7 @@ class App extends React.Component {
 
     console.log("handleiframe****");
     console.log("Iframe data: "+ JSON.stringify(initialDataFromIframe));
-    this.setState({
-      state: initialDataFromIframe,
-    });
+    this.state = initialDataFromIframe;
 
     if (e.origin !== 'https://elegant-blackwell-70ddb5.netlify.app/') {
       return;
