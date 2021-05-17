@@ -81,7 +81,6 @@ class App extends React.Component {
 
   componentDidMount() {
     window.addEventListener("message", this.handleIframeTask.bind(this), false);
-    this.render();
   };
 
   handleIframeTask = (e) => {
@@ -149,9 +148,8 @@ class App extends React.Component {
     console.log("handleiframe****");
     console.log("Iframe data: "+ JSON.stringify(initialDataFromIframe));
     this.state = initialDataFromIframe;
-    this.forceUpdate();
+    this.setState();
     console.log("****");
-    this.render();
   };
 
   onDragStart = start => {
