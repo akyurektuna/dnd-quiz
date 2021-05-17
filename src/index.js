@@ -148,7 +148,7 @@ class App extends React.Component {
     console.log("handleiframe****");
     console.log("Iframe data: "+ JSON.stringify(initialDataFromIframe));
     this.state = initialDataFromIframe;
-    this.setState();
+    this.setState(initialDataFromIframe);
     console.log("****");
   };
 
