@@ -14,7 +14,7 @@ class App extends React.Component {
 
   constructor(props) {
     super(props);
-    const liste1= "ornekEleman1 ornekEleman2";
+    const liste1 = "ornekEleman1 ornekEleman2";
     const liste1D = liste1.split(" ");
     const liste2 = "ornekEleman3 ornekEleman4 ornekEleman5";
     const liste2D = liste2.split(" ");
@@ -83,14 +83,9 @@ class App extends React.Component {
   };
 
   handleIframeTask = (e) => {
-    console.log("index.js icinde handleIframe");
-    console.log(e.origin);
-    console.log("e.data: " + e.data);
-    console.log("*****" + JSON.stringify(e.data));
-    //{"quizType":"Reorder","firstinputs":"liste1 elemanlar","secondinputs":"liste2 elemanlar"}
+
     var eventDataArr = JSON.stringify(e.data).split(",");
     const quizType = eventDataArr[0].split(':')[1].substring(1, eventDataArr[0].split(':')[1].length - 1);
-    console.log(quizType);
     const liste1 = eventDataArr[1].split(':')[1].substring(1, eventDataArr[1].split(':')[1].length - 1);
     const liste2 = eventDataArr[2].split(':')[1].substring(1, eventDataArr[2].split(':')[1].length - 2);
 
@@ -99,10 +94,11 @@ class App extends React.Component {
 
     const taskIdsList1 = [];
     const taskIdsList2 = [];
-    const getTasksInLists = (liste1D, liste2D) => {
 
+    const getTasksInLists = (liste1D, liste2D) => {
       let tasks = [];
       let taskId = 0;
+
       for (let idx in liste1D) {
         const task = {
           id: taskId.toString(),
@@ -110,11 +106,11 @@ class App extends React.Component {
           altContent: '',
           whichColumn: '1'
         }
-        console.log("tasks1 " + JSON.stringify(task));
         tasks.push(task);
         taskIdsList1.push(taskId.toString());
         taskId++;
       }
+
       for (let idx in liste2D) {
         const task = {
           id: taskId.toString(),
@@ -126,14 +122,11 @@ class App extends React.Component {
         taskIdsList2.push(taskId.toString());
         taskId++;
       }
-      console.log("tasks: " + tasks);
-      debugger;
       return tasks;
     };
 
     const initialDataFromIframe = {
       tasks: getTasksInLists(liste1D, liste2D),
-
       columns: {
         'column-1': {
           id: 'column-1',
@@ -150,7 +143,10 @@ class App extends React.Component {
       },
       columnOrder: ['column-1', 'column-2'],
     };
-    this.state = initialDataFromIframe;
+
+    this.setState((state) => {
+      return {initialDataFromIframe}
+    });
 
     if (e.origin !== 'https://elegant-blackwell-70ddb5.netlify.app/') {
       return;
