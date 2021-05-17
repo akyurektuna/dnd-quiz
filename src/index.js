@@ -70,7 +70,9 @@ class App extends React.Component {
         },
         columnOrder: ['column-1', 'column-2'],
       };
-      this.state = initialDataFromIframe;
+      this.setState({
+        state: initialDataFromIframe,
+      });
     }
 
     const columnIki = Array.from(this.state.columns["column-2"].taskIds);
