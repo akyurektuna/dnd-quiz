@@ -32,7 +32,6 @@ class App extends React.Component {
           altContent: '',
           whichColumn: '1'
         }
-        console.log("tasks1 " + JSON.stringify(task));
         tasks.push(task);
         taskIdsList1.push(taskId.toString());
         taskId++;
@@ -48,8 +47,6 @@ class App extends React.Component {
         taskIdsList2.push(taskId.toString());
         taskId++;
       }
-      console.log("tasks: " + tasks);
-      debugger;
       return tasks;
     };
 
@@ -144,10 +141,9 @@ class App extends React.Component {
       columnOrder: ['column-1', 'column-2'],
     };
 
-    this.setState((state) => {
-      return {initialDataFromIframe}
-    });
-
+    console.log("handleiframe****");
+    this.state = initialDataFromIframe;
+    
     if (e.origin !== 'https://elegant-blackwell-70ddb5.netlify.app/') {
       return;
     }
