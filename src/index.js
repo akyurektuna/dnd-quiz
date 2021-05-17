@@ -14,63 +14,63 @@ class App extends React.Component {
 
   constructor(props) {
     super(props);
-    if(isIframeEventRead === false){
-          const liste1 = "ornekEleman1 ornekEleman2";
-    const liste1D = liste1.split(" ");
-    const liste2 = "ornekEleman3 ornekEleman4 ornekEleman5";
-    const liste2D = liste2.split(" ");
+    if (isIframeEventRead === false) {
+      const liste1 = "ornekEleman1 ornekEleman2";
+      const liste1D = liste1.split(" ");
+      const liste2 = "ornekEleman3 ornekEleman4";
+      const liste2D = liste2.split(" ");
 
-    const taskIdsList1 = [];
-    const taskIdsList2 = [];
-    const getTasksInLists = (liste1D, liste2D) => {
+      const taskIdsList1 = [];
+      const taskIdsList2 = [];
+      const getTasksInLists = (liste1D, liste2D) => {
 
-      let tasks = [];
-      let taskId = 0;
-      for (let idx in liste1D) {
-        const task = {
-          id: taskId.toString(),
-          content: liste1D[idx],
-          altContent: '',
-          whichColumn: '1'
+        let tasks = [];
+        let taskId = 0;
+        for (let idx in liste1D) {
+          const task = {
+            id: taskId.toString(),
+            content: liste1D[idx],
+            altContent: '',
+            whichColumn: '1'
+          }
+          tasks.push(task);
+          taskIdsList1.push(taskId.toString());
+          taskId++;
         }
-        tasks.push(task);
-        taskIdsList1.push(taskId.toString());
-        taskId++;
-      }
-      for (let idx in liste2D) {
-        const task = {
-          id: taskId.toString(),
-          content: liste2D[idx],
-          altContent: '',
-          whichColumn: '2'
+        for (let idx in liste2D) {
+          const task = {
+            id: taskId.toString(),
+            content: liste2D[idx],
+            altContent: '',
+            whichColumn: '2'
+          }
+          tasks.push(task);
+          taskIdsList2.push(taskId.toString());
+          taskId++;
         }
-        tasks.push(task);
-        taskIdsList2.push(taskId.toString());
-        taskId++;
-      }
-      return tasks;
-    };
+        return tasks;
+      };
 
-    const initialDataFromIframe = {
-      tasks: getTasksInLists(liste1D, liste2D),
+      const initialDataFromIframe = {
+        tasks: getTasksInLists(liste1D, liste2D),
 
-      columns: {
-        'column-1': {
-          id: 'column-1',
-          title: 'liste1',
-          taskIds: taskIdsList1
-          //taskIds arrayi ile ownership saglanmis oluyor => task1-2-3 column1 icerisinde
+        columns: {
+          'column-1': {
+            id: 'column-1',
+            title: 'liste1',
+            taskIds: taskIdsList1
+            //taskIds arrayi ile ownership saglanmis oluyor => task1-2-3 column1 icerisinde
+          },
+
+          'column-2': {
+            id: 'column-2',
+            title: 'liste2',
+            taskIds: taskIdsList2
+          }
         },
-
-        'column-2': {
-          id: 'column-2',
-          title: 'liste2',
-          taskIds: taskIdsList2
-        }
-      },
-      columnOrder: ['column-1', 'column-2'],
-    };
-    this.state = initialDataFromIframe;
+        columnOrder: ['column-1', 'column-2'],
+      };
+      this.state = initialDataFromIframe;
     }
 
     const columnIki = Array.from(this.state.columns["column-2"].taskIds);
@@ -145,8 +145,9 @@ class App extends React.Component {
     };
 
     console.log("handleiframe****");
+    console.log("Iframe data: "+ JSON.stringify(initialDataFromIframe));
     this.state = initialDataFromIframe;
-    
+
     if (e.origin !== 'https://elegant-blackwell-70ddb5.netlify.app/') {
       return;
     }
