@@ -147,6 +147,7 @@ class App extends React.Component {
 
     console.log("handleiframe****");
     console.log("Iframe data: "+ JSON.stringify(initialDataFromIframe));
+    constructor(this.props);
     this.state = initialDataFromIframe;
     this.forceUpdate();
     console.log("****");
