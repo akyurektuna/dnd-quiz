@@ -149,15 +149,7 @@ class App extends React.Component {
     console.log("Iframe data: "+ JSON.stringify(initialDataFromIframe));
     this.state = initialDataFromIframe;
     this.forceUpdate();
-
-    if (e.origin !== 'https://elegant-blackwell-70ddb5.netlify.app/') {
-      return;
-    }
-
-    if (e.data === 'message') {
-      console.log("react icinde handleIframe");
-      console.log("e.data: " + e.data);
-    }
+    console.log("****");
   };
 
   onDragStart = start => {
