@@ -9,12 +9,13 @@ import Column from './column';
 const Container = styled.div`
   display: flex;
 `;
-
+let isIframeEventRead = false;
 class App extends React.Component {
 
   constructor(props) {
     super(props);
-    const liste1 = "ornekEleman1 ornekEleman2";
+    if(isIframeEventRead === false){
+          const liste1 = "ornekEleman1 ornekEleman2";
     const liste1D = liste1.split(" ");
     const liste2 = "ornekEleman3 ornekEleman4 ornekEleman5";
     const liste2D = liste2.split(" ");
@@ -70,6 +71,8 @@ class App extends React.Component {
       columnOrder: ['column-1', 'column-2'],
     };
     this.state = initialDataFromIframe;
+    }
+
     const columnIki = Array.from(this.state.columns["column-2"].taskIds);
     columnIki.forEach(element => this.state.tasks[element].isDragDisabled = true);
 
@@ -80,7 +83,7 @@ class App extends React.Component {
   };
 
   handleIframeTask = (e) => {
-
+    isIframeEventRead = true;
     var eventDataArr = JSON.stringify(e.data).split(",");
     const quizType = eventDataArr[0].split(':')[1].substring(1, eventDataArr[0].split(':')[1].length - 1);
     const liste1 = eventDataArr[1].split(':')[1].substring(1, eventDataArr[1].split(':')[1].length - 1);
