@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import '@atlaskit/css-reset';
 import styled from 'styled-components';
 import { DragDropContext } from 'react-beautiful-dnd';
-import initialData from './initial-data';
 import Column from './column';
 //import { useState } from 'react';
 
@@ -12,39 +11,154 @@ const Container = styled.div`
 `;
 
 class App extends React.Component {
-  state = initialData;
+
   constructor(props) {
     super(props);
+    const liste1= "ornekEleman1 ornekEleman2";
+    const liste1D = liste1.split(" ");
+    const liste2 = "ornekEleman3 ornekEleman4 ornekEleman5";
+    const liste2D = liste2.split(" ");
+
+    const taskIdsList1 = [];
+    const taskIdsList2 = [];
+    const getTasksInLists = (liste1D, liste2D) => {
+
+      let tasks = [];
+      let taskId = 0;
+      for (let idx in liste1D) {
+        const task = {
+          id: taskId.toString(),
+          content: liste1D[idx],
+          altContent: '',
+          whichColumn: '1'
+        }
+        console.log("tasks1 " + JSON.stringify(task));
+        tasks.push(task);
+        taskIdsList1.push(taskId.toString());
+        taskId++;
+      }
+      for (let idx in liste2D) {
+        const task = {
+          id: taskId.toString(),
+          content: liste2D[idx],
+          altContent: '',
+          whichColumn: '2'
+        }
+        tasks.push(task);
+        taskIdsList2.push(taskId.toString());
+        taskId++;
+      }
+      console.log("tasks: " + tasks);
+      debugger;
+      return tasks;
+    };
+
+    const initialDataFromIframe = {
+      tasks: getTasksInLists(liste1D, liste2D),
+
+      columns: {
+        'column-1': {
+          id: 'column-1',
+          title: 'liste1',
+          taskIds: taskIdsList1
+          //taskIds arrayi ile ownership saglanmis oluyor => task1-2-3 column1 icerisinde
+        },
+
+        'column-2': {
+          id: 'column-2',
+          title: 'liste2',
+          taskIds: taskIdsList2
+        }
+      },
+      columnOrder: ['column-1', 'column-2'],
+    };
+    this.state = initialDataFromIframe;
     const columnIki = Array.from(this.state.columns["column-2"].taskIds);
     columnIki.forEach(element => this.state.tasks[element].isDragDisabled = true);
 
   }
 
-componentDidMount() {
-  window.addEventListener("message", this.handleIframeTask.bind(this), false);
-};
+  componentDidMount() {
+    window.addEventListener("message", this.handleIframeTask.bind(this), false);
+  };
 
   handleIframeTask = (e) => {
     console.log("index.js icinde handleIframe");
     console.log(e.origin);
-    console.log("e.data: "+e.data);
-    console.log("*****"+JSON.stringify(e.data));
+    console.log("e.data: " + e.data);
+    console.log("*****" + JSON.stringify(e.data));
     //{"quizType":"Reorder","firstinputs":"liste1 elemanlar","secondinputs":"liste2 elemanlar"}
     var eventDataArr = JSON.stringify(e.data).split(",");
-    const quizType = eventDataArr[0].split(':')[1].substring(1,eventDataArr[0].split(':')[1].length-1);
+    const quizType = eventDataArr[0].split(':')[1].substring(1, eventDataArr[0].split(':')[1].length - 1);
     console.log(quizType);
-    const liste1 = eventDataArr[1].split(':')[1].substring(1,eventDataArr[1].split(':')[1].length-1);
-    console.log(liste1);
-    const liste2 = eventDataArr[2].split(':')[1].substring(1,eventDataArr[2].split(':')[1].length-2);
-    console.log(liste2);
+    const liste1 = eventDataArr[1].split(':')[1].substring(1, eventDataArr[1].split(':')[1].length - 1);
+    const liste2 = eventDataArr[2].split(':')[1].substring(1, eventDataArr[2].split(':')[1].length - 2);
+
+    const liste1D = liste1.split(" ");
+    const liste2D = liste2.split(" ");
+
+    const taskIdsList1 = [];
+    const taskIdsList2 = [];
+    const getTasksInLists = (liste1D, liste2D) => {
+
+      let tasks = [];
+      let taskId = 0;
+      for (let idx in liste1D) {
+        const task = {
+          id: taskId.toString(),
+          content: liste1D[idx],
+          altContent: '',
+          whichColumn: '1'
+        }
+        console.log("tasks1 " + JSON.stringify(task));
+        tasks.push(task);
+        taskIdsList1.push(taskId.toString());
+        taskId++;
+      }
+      for (let idx in liste2D) {
+        const task = {
+          id: taskId.toString(),
+          content: liste2D[idx],
+          altContent: '',
+          whichColumn: '2'
+        }
+        tasks.push(task);
+        taskIdsList2.push(taskId.toString());
+        taskId++;
+      }
+      console.log("tasks: " + tasks);
+      debugger;
+      return tasks;
+    };
+
+    const initialDataFromIframe = {
+      tasks: getTasksInLists(liste1D, liste2D),
+
+      columns: {
+        'column-1': {
+          id: 'column-1',
+          title: 'liste1',
+          taskIds: taskIdsList1
+          //taskIds arrayi ile ownership saglanmis oluyor => task1-2-3 column1 icerisinde
+        },
+
+        'column-2': {
+          id: 'column-2',
+          title: 'liste2',
+          taskIds: taskIdsList2
+        }
+      },
+      columnOrder: ['column-1', 'column-2'],
+    };
+    this.state = initialDataFromIframe;
 
     if (e.origin !== 'https://elegant-blackwell-70ddb5.netlify.app/') {
-       return;
-     }
+      return;
+    }
 
-     if (e.data === 'message') {
+    if (e.data === 'message') {
       console.log("react icinde handleIframe");
-      console.log("e.data: "+e.data);
+      console.log("e.data: " + e.data);
     }
   };
 
@@ -94,11 +208,11 @@ componentDidMount() {
     return;
 
   };
-  
+
   //DragDropContext'te 3 adet callback var
   //ondragend,ondragstart,ondragupdate
   render() {
-    const columnIki = Array.from(this.state.columns["column-2"].taskIds);
+    //const columnIki = Array.from(this.state.columns["column-2"].taskIds);
     return (
       <DragDropContext
         onDragStart={this.onDragStart}
