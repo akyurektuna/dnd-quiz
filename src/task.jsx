@@ -22,14 +22,7 @@ const Answer = styled.div`
     color: blue;
 `;
 
-// const Handle = styled.div`
-//     width: 20px;
-//     height: 20px;
-//     background-color: plum;
-//     border-radius: 4px;
-//     margin-right: 8px;
-// `; 
-//drag handle artık handle componenti olacak (container yerine)
+
 export default class Task extends React.Component {
     render() {
         //dragdisabled durumunu ikinci listedeki tum elemanlar icin yap

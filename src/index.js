@@ -10,6 +10,7 @@ const Container = styled.div`
   display: flex;
 `;
 let isIframeEventRead = false;
+let quizType = "Reorder";
 class App extends React.Component {
 
   constructor(props) {
@@ -71,12 +72,10 @@ class App extends React.Component {
         columnOrder: ['column-1', 'column-2'],
       };
       this.state = initialDataFromIframe;
-      console.log("**");
     }
 
     const columnIki = Array.from(this.state.columns["column-2"].taskIds);
     columnIki.forEach(element => this.state.tasks[element].isDragDisabled = true);
-
   }
 
   componentDidMount() {
@@ -86,7 +85,7 @@ class App extends React.Component {
   handleIframeTask = (e) => {
     isIframeEventRead = true;
     var eventDataArr = JSON.stringify(e.data).split(",");
-    const quizType = eventDataArr[0].split(':')[1].substring(1, eventDataArr[0].split(':')[1].length - 1);
+    quizType = eventDataArr[0].split(':')[1].substring(1, eventDataArr[0].split(':')[1].length - 1);
     const liste1 = eventDataArr[1].split(':')[1].substring(1, eventDataArr[1].split(':')[1].length - 1);
     const liste2 = eventDataArr[2].split(':')[1].substring(1, eventDataArr[2].split(':')[1].length - 2);
 
@@ -145,8 +144,6 @@ class App extends React.Component {
       columnOrder: ['column-1', 'column-2'],
     };
 
-    console.log("handleiframe****");
-    console.log("Iframe data: "+ JSON.stringify(initialDataFromIframe));
     this.setState(initialDataFromIframe);
   };
 
@@ -163,7 +160,7 @@ class App extends React.Component {
     this.setState({
       homeIndex: null,
     });
-    const { destination, source, combine } = result;
+    const { destination, source, combine,draggableId } = result;
 
     if (!combine && !destination) {
       return;
@@ -174,8 +171,11 @@ class App extends React.Component {
       return;
     }
 
+    console.log("quiztype: "+quizType);
+    debugger;
     //******bir listeden digerine gecis******
-    if (combine) {
+    if (combine && quizType === "Combine") {
+      console.log("quiztype combine");
       const start = this.state.columns[source.droppableId];
       //const finish = this.state.columns[combine.droppableId];
       const combineTaskIds = Array.from(start.taskIds);
@@ -193,9 +193,36 @@ class App extends React.Component {
       this.setState(prevState => ({ ...prevState, columns: { ...prevState.columns, [newColumn.id]: newColumn } }));
     }
 
+    if(quizType === "Reorder"){
+      console.log("quiztype reorder");
+      const startColumn = this.state.columns[source.droppableId];
+    const finishColumn= this.state.columns[destination.droppableId];
+
+    if(startColumn === finishColumn){
+      const newTaskIds = Array.from(startColumn.taskIds);
+      newTaskIds.splice(source.index,1);
+      //draggableId=taskId
+      newTaskIds.splice(destination.index,0,draggableId);
+  
+      const newColumn = {
+        ...startColumn,
+        taskIds: newTaskIds,
+      };
+  
+      const newState = {
+        ...this.state,
+        columns: {
+          ...this.state.columns,
+          [newColumn.id]: newColumn,
+        },
+      };
+  
+      this.setState(newState);
+    }}
+
     return;
 
-  };
+  }
 
   //DragDropContext'te 3 adet callback var
   //ondragend,ondragstart,ondragupdate
