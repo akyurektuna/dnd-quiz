@@ -4,13 +4,15 @@ import '@atlaskit/css-reset';
 import styled from 'styled-components';
 import { DragDropContext } from 'react-beautiful-dnd';
 import Column from './column';
-//import { useState } from 'react';
+let quizType = "Reorder";
+export{quizType};
+
 
 const Container = styled.div`
   display: flex;
 `;
 let isIframeEventRead = false;
-let quizType = "Reorder";
+
 class App extends React.Component {
 
   constructor(props) {
@@ -74,8 +76,13 @@ class App extends React.Component {
       this.state = initialDataFromIframe;
     }
 
-    const columnIki = Array.from(this.state.columns["column-2"].taskIds);
-    columnIki.forEach(element => this.state.tasks[element].isDragDisabled = true);
+    if(quizType === "Combine"){
+      const columnIki = Array.from(this.state.columns["column-2"].taskIds);
+      columnIki.forEach(element => this.state.tasks[element].isDragDisabled = true);
+    
+    }
+
+
   }
 
   componentDidMount() {
@@ -160,68 +167,110 @@ class App extends React.Component {
     this.setState({
       homeIndex: null,
     });
-    const { destination, source, combine,draggableId } = result;
+    console.log("result: "+JSON.stringify(result));
+    if(quizType === "Combine"){
 
-    if (!combine && !destination) {
-      return;
-    }
-    //user droppable'i basladigi yere geri birakti
-    if (!combine && destination.droppableId === source.droppableId &&
-      destination.index === source.index) {
-      return;
-    }
-
-    console.log("quiztype: "+quizType);
-    debugger;
-    //******bir listeden digerine gecis******
-    if (combine && quizType === "Combine") {
-      console.log("quiztype combine");
-      const start = this.state.columns[source.droppableId];
-      //const finish = this.state.columns[combine.droppableId];
-      const combineTaskIds = Array.from(start.taskIds);
-      // icindeki text: this.state.tasks[eleman].content
-      var eleman = combineTaskIds[source.index];
-      var textLeft = this.state.tasks[eleman].content;
-
-      var eleman2 = combine.draggableId;
-      this.state.tasks[eleman2].altContent = textLeft;
-      //soldakini silmek yerine, sagdaki combine edilen elemanin altına bir text ekle
-      const newColumn = {
-        ...start,
-        taskIds: combineTaskIds,
-      };
-      this.setState(prevState => ({ ...prevState, columns: { ...prevState.columns, [newColumn.id]: newColumn } }));
+      const { destination, source, combine } = result;
+      if (!combine && !destination) {
+        return;
+      }
+      //user droppable'i basladigi yere geri birakti
+      if (!combine && destination.droppableId === source.droppableId &&
+        destination.index === source.index) {
+        return;
+      }
+  
+      //******bir listeden digerine gecis******
+      if (combine && quizType === "Combine") {
+        console.log("quiztype combine");
+        const start = this.state.columns[source.droppableId];
+        //const finish = this.state.columns[combine.droppableId];
+        const combineTaskIds = Array.from(start.taskIds);
+        // icindeki text: this.state.tasks[eleman].content
+        var eleman = combineTaskIds[source.index];
+        var textLeft = this.state.tasks[eleman].content;
+  
+        var eleman2 = combine.draggableId;
+        this.state.tasks[eleman2].altContent = textLeft;
+        //soldakini silmek yerine, sagdaki combine edilen elemanin altına bir text ekle
+        const newColumn = {
+          ...start,
+          taskIds: combineTaskIds,
+        };
+        this.setState(prevState => ({ ...prevState, columns: { ...prevState.columns, [newColumn.id]: newColumn } }));
+      }
     }
 
     if(quizType === "Reorder"){
-      console.log("quiztype reorder");
-      const startColumn = this.state.columns[source.droppableId];
-    const finishColumn= this.state.columns[destination.droppableId];
-
-    if(startColumn === finishColumn){
-      const newTaskIds = Array.from(startColumn.taskIds);
-      newTaskIds.splice(source.index,1);
-      //draggableId=taskId
-      newTaskIds.splice(destination.index,0,draggableId);
+      console.log("quiztype reorder icinde");
+      const {destination, source, draggableId} = result;
+    
+      console.log("destination: "+JSON.stringify(destination));
+      console.log("source: "+ JSON.stringify(source));
+      console.log("result: "+JSON.stringify(result));
+      if(!destination){
+        console.log("kontrol-1");
+        return;
+      }
   
-      const newColumn = {
+      if(destination.droppableId === source.droppableId &&
+        destination.index === source.index){
+          console.log("kontrol-2");
+          return;
+      }
+      
+      const startColumn = this.state.columns[source.droppableId];
+      const finishColumn= this.state.columns[destination.droppableId];
+  
+      if(startColumn === finishColumn){
+        const newTaskIds = Array.from(startColumn.taskIds);
+        newTaskIds.splice(source.index,1);
+        //draggableId=taskId
+        newTaskIds.splice(destination.index,0,draggableId);
+    
+        const newColumn = {
+          ...startColumn,
+          taskIds: newTaskIds,
+        };
+    
+        const newState = {
+          ...this.state,
+          columns: {
+            ...this.state.columns,
+            [newColumn.id]: newColumn,
+          },
+        };
+    
+        this.setState(newState);
+        return;
+      }
+  
+      const startTaskIds = Array.from(startColumn.taskIds);
+      startTaskIds.splice(source.index, 1);
+      const newStart = {
         ...startColumn,
-        taskIds: newTaskIds,
+        taskIds: startTaskIds,
+      };
+  
+      const finishTaskIds = Array.from(finishColumn.taskIds);
+      finishTaskIds.splice(destination.index,0,draggableId);
+      const newFinish = {
+        ...finishColumn,
+        taskIds: finishTaskIds,
       };
   
       const newState = {
         ...this.state,
         columns: {
           ...this.state.columns,
-          [newColumn.id]: newColumn,
+          [newStart.id]: newStart,
+          [newFinish.id]: newFinish,
         },
       };
-  
       this.setState(newState);
-    }}
-
+    
+    }
     return;
-
   }
 
   //DragDropContext'te 3 adet callback var
@@ -237,7 +286,11 @@ class App extends React.Component {
             const column = this.state.columns[columnId];
             const tasks = column.taskIds.map(taskId => this.state.tasks[taskId]);
 
-            const isDropDisabled = index <= this.state.homeIndex;
+            //// <= olma durumu da var
+            var isDropDisabled = index < this.state.homeIndex;
+            if(quizType==="Combine"){
+              isDropDisabled = index <= this.state.homeIndex;
+            }
             return <Column key={column.id} column={column} tasks={tasks} isDropDisabled={isDropDisabled} />;
           })}
         </Container>

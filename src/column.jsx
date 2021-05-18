@@ -36,7 +36,6 @@ class InnerList extends React.Component{
     }
 }
 
-
 export default class Column extends React.Component {
     render() {
         return (
@@ -45,7 +44,6 @@ export default class Column extends React.Component {
                 <Droppable 
                     droppableId={this.props.column.id}
                     isDropDisabled={this.props.isDropDisabled}
-                    //1. column a drop yapilamasin
                     isCombineEnabled
                     >
                     
