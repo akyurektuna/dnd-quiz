@@ -151,7 +151,7 @@ class App extends React.Component {
         taskId++;
       }
 
-
+      correctAnswersIdsArr = [];
       for (let i in taskIdsList1) {
         const correctMatch = {
           taskIdOne: taskIdsList1[i],
