@@ -377,6 +377,7 @@ class App extends React.Component {
 
     //send this to iframe to be shown after form submit
     var scoreForIframe = score + "/" + maxPoints;
+    window.parent.postMessage(scoreForIframe, 'https://elegant-blackwell-70ddb5.netlify.app');
 
     //const columnIki = Array.from(this.state.columns["column-2"].taskIds);
     return (
