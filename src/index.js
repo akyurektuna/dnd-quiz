@@ -355,8 +355,8 @@ class App extends React.Component {
         answersArr.push(answer);
 
       }
-      //console.log("answers arr: "+JSON.stringify(answersArr));
-      //console.log("correct answers arr: "+JSON.stringify(correctAnswersIdsArr));
+      console.log("answers arr: "+JSON.stringify(answersArr));
+      console.log("correct answers arr: "+JSON.stringify(correctAnswersIdsArr));
     }
 
 
