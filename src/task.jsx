@@ -11,6 +11,12 @@ margin-bottom: 8px;
 background-color: ${props => props.isDragDisabled ? 'lightgrey' : props.isDragging ? 'lightgreen':'white'};
 display: flex;
 position: relative;
+&.even {
+    background-color: #c2e3a8;
+}
+&.odd {
+    background-color: #dfc6f1;
+}
 `;
 //task contenti bu container icerisinde wrap ediyoruz
 
@@ -22,10 +28,10 @@ color: white;
 position: absolute;
 right: 10px;
 border: 1px solid lightgrey;
-border-radius: 8px;
+border-radius: 30px;
 background-color: #0c7a0c;
 display: inline-table;
-padding: 0 5px;
+text-align: center;
 `;
 
 
@@ -39,6 +45,10 @@ export default class Task extends React.Component {
         if(quizType === "Reorder"){
             isDragDisabled = this.props.task.whichColumn <'2';
         }
+        let rowClassName = '';
+        if(quizType === "Reorder"){
+            rowClassName = this.props.index % 2 === 0 ? "even" : "odd";
+        }
         
 
 
@@ -51,13 +61,15 @@ export default class Task extends React.Component {
             >
             {(provided, snapshot) => (
                 <Container
+                    className={rowClassName} 
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
                     ref={provided.innerRef}
                     isDragging={snapshot.isDragging}
                 >
-                    {this.props.task.content}
-                    {this.props.task.altContent && <Answer> {this.props.task.altContent} </Answer>}
+                    <div>{this.props.task.content}</div>
+                    
+                    {this.props.task.altContent && <div> <Answer> {this.props.task.altContent} </Answer> </div>}
                     
                 </Container>
             )}

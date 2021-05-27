@@ -24,7 +24,6 @@ class App extends React.Component {
       const liste2 = "ornekEleman3*ornekEleman4";
       const liste2D = liste2.split("*");
 
-
       const taskIdsList1 = [];
       const taskIdsList2 = [];
 
@@ -32,17 +31,21 @@ class App extends React.Component {
 
         let tasks = [];
         let taskId = 0;
+        let num = 1;
         for (let idx in liste1D) {
+          const order = quizType === "Combine" ? `${num}. ` : "";
           const task = {
             id: taskId.toString(),
-            content: liste1D[idx],
+            content: `${order}${liste1D[idx]}`,
             altContent: '',
             altContentId: '',
-            whichColumn: '1'
+            whichColumn: '1',
+            num: num
           }
           tasks.push(task);
           taskIdsList1.push(taskId.toString());
           taskId++;
+          num++;
         }
         for (let idx in liste2D) {
           const task = {
@@ -57,7 +60,6 @@ class App extends React.Component {
           taskId++;
         }
 
-        /////
         correctAnswersIdsArr = [];
         for (let i in taskIdsList1) {
           const correctMatch = {
@@ -66,12 +68,9 @@ class App extends React.Component {
           }
           correctAnswersIdsArr.push(correctMatch);
         }
-        /////
 
         return tasks;
       };
-
-
 
       const initialDataFromIframe = {
         tasks: getTasksInLists(liste1D, liste2D),
@@ -98,9 +97,7 @@ class App extends React.Component {
     if (quizType === "Combine") {
       const columnIki = Array.from(this.state.columns["column-2"].taskIds);
       columnIki.forEach(element => this.state.tasks[element].isDragDisabled = true);
-
     }
-
 
   }
 
@@ -124,18 +121,22 @@ class App extends React.Component {
     const getTasksInLists = (liste1D, liste2D) => {
       let tasks = [];
       let taskId = 0;
-
+      let num = 1;
+      const order = quizType === "Combine" ? `${num}. ` : "";
       for (let idx in liste1D) {
         const task = {
           id: taskId.toString(),
+          content: `${order}${liste1D[idx]}`,
           content: liste1D[idx],
           altContent: '',
           altContentId: '',
-          whichColumn: '1'
+          whichColumn: '1',
+          num: num
         }
         tasks.push(task);
         taskIdsList1.push(taskId.toString());
         taskId++;
+        num++;
       }
 
       for (let idx in liste2D) {
@@ -219,12 +220,15 @@ class App extends React.Component {
         const combineTaskIds = Array.from(start.taskIds);
         // icindeki text: this.state.tasks[eleman].content
         var eleman = combineTaskIds[source.index];
-        var textLeft = this.state.tasks[eleman].content;
+        var textLeft = this.state.tasks[eleman].num;
+        console.log(this.state.tasks[eleman].num);
         var textLeftId = this.state.tasks[eleman].id;
 
         var eleman2 = combine.draggableId;
+        
         this.state.tasks[eleman2].altContent = textLeft;
         this.state.tasks[eleman2].altContentId = textLeftId;
+        console.log("burda"+JSON.stringify(this.state.tasks[eleman2]));
         //soldakini silmek yerine, sagdaki combine edilen elemanin altına bir text ekle
         const newColumn = {
           ...start,
