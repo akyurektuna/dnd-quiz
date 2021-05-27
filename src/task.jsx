@@ -18,7 +18,9 @@ const Answer = styled.div`
     width: 20px;
     height: 20px;
     textAlign: right;
-    color: blue;
+    color: lightgreen;
+    position: relative;
+    left: 10px;
 `;
 
 

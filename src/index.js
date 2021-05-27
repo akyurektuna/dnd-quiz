@@ -79,14 +79,14 @@ class App extends React.Component {
         columns: {
           'column-1': {
             id: 'column-1',
-            title: 'liste1',
+            title: ' ',
             taskIds: taskIdsList1
             //taskIds arrayi ile ownership saglanmis oluyor => task1-2-3 column1 icerisinde
           },
 
           'column-2': {
             id: 'column-2',
-            title: 'liste2',
+            title: ' ',
             taskIds: taskIdsList2
           }
         },
@@ -168,14 +168,14 @@ class App extends React.Component {
       columns: {
         'column-1': {
           id: 'column-1',
-          title: 'liste1',
+          title: ' ',
           taskIds: taskIdsList1
           //taskIds arrayi ile ownership saglanmis oluyor => task1-2-3 column1 icerisinde
         },
 
         'column-2': {
           id: 'column-2',
-          title: 'liste2',
+          title: ' ',
           taskIds: taskIdsList2
         }
       },
