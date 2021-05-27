@@ -4,7 +4,7 @@ import '@atlaskit/css-reset';
 import styled from 'styled-components';
 import { DragDropContext } from 'react-beautiful-dnd';
 import Column from './column';
-let quizType = "Reorder";
+let quizType = "Combine";
 export { quizType };
 
 let correctAnswersIdsArr = [];

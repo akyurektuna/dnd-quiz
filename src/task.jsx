@@ -10,6 +10,7 @@ padding: 8px;
 margin-bottom: 8px;
 background-color: ${props => props.isDragDisabled ? 'lightgrey' : props.isDragging ? 'lightgreen':'white'};
 display: flex;
+position: relative;
 `;
 //task contenti bu container icerisinde wrap ediyoruz
 
@@ -17,13 +18,14 @@ display: flex;
 const Answer = styled.div`
 width: 20px;
 height: 20px;
-textAlign: right;
-color: lightgreen;
-position: relative;
-left: 10px;
+color: white;
+position: absolute;
+right: 10px;
 border: 1px solid lightgrey;
-border-radius: 2px;
-
+border-radius: 8px;
+background-color: #0c7a0c;
+display: inline-table;
+padding: 0 5px;
 `;
 
 
