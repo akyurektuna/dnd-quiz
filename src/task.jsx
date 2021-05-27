@@ -21,6 +21,8 @@ textAlign: right;
 color: lightgreen;
 position: relative;
 left: 10px;
+border: 1px solid lightgrey;
+border-radius: 2px;
 
 `;
 
@@ -53,7 +55,8 @@ export default class Task extends React.Component {
                     isDragging={snapshot.isDragging}
                 >
                     {this.props.task.content}
-                    <Answer> {this.props.task.altContent} </Answer>
+                    {this.props.task.altContent && <Answer> {this.props.task.altContent} </Answer>}
+                    
                 </Container>
             )}
             
