@@ -124,6 +124,7 @@ class App extends React.Component {
       let num = 1;
       for (let idx in liste1D) {
         const order = quizType === "Combine" ? `${num}. ` : "";
+        console.log("**"+order);
         const task = {
           id: taskId.toString(),
           content: `${order}${liste1D[idx]}`,
