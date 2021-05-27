@@ -19,10 +19,10 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     if (isIframeEventRead === false) {
-      const liste1 = "ornekEleman1 ornekEleman2";
-      const liste1D = liste1.split(" ");
-      const liste2 = "ornekEleman3 ornekEleman4";
-      const liste2D = liste2.split(" ");
+      const liste1 = "ornekEleman1*ornekEleman2";
+      const liste1D = liste1.split("*");
+      const liste2 = "ornekEleman3*ornekEleman4";
+      const liste2D = liste2.split("*");
 
 
       const taskIdsList1 = [];
@@ -115,8 +115,8 @@ class App extends React.Component {
     const liste1 = eventDataArr[1].split(':')[1].substring(1, eventDataArr[1].split(':')[1].length - 1);
     const liste2 = eventDataArr[2].split(':')[1].substring(1, eventDataArr[2].split(':')[1].length - 2);
 
-    const liste1D = liste1.split(" ");
-    const liste2D = liste2.split(" ");
+    const liste1D = liste1.split("*");
+    const liste2D = liste2.split("*");
 
     const taskIdsList1 = [];
     const taskIdsList2 = [];

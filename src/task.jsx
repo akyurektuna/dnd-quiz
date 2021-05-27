@@ -4,23 +4,24 @@ import { Draggable } from 'react-beautiful-dnd';
 import {quizType} from './index.js';
 
 const Container = styled.div`
-    border: 1px solid lightgrey;
-    border-radius: 2px;
-    padding: 8px;
-    margin-bottom: 8px;
+border: 1px solid lightgrey;
+border-radius: 2px;
+padding: 8px;
+margin-bottom: 8px;
 background-color: ${props => props.isDragDisabled ? 'lightgrey' : props.isDragging ? 'lightgreen':'white'};
-    display: flex;
+display: flex;
 `;
 //task contenti bu container icerisinde wrap ediyoruz
 
 //answer sadece quizType:combine icin olmali
 const Answer = styled.div`
-    width: 20px;
-    height: 20px;
-    textAlign: right;
-    color: lightgreen;
-    position: relative;
-    left: 10px;
+width: 20px;
+height: 20px;
+textAlign: right;
+color: lightgreen;
+position: relative;
+left: 10px;
+
 `;
 
 
