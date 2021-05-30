@@ -18,6 +18,8 @@ class App extends React.Component {
 
   constructor(props) {
     super(props);
+    
+    //this part is for testing in local with temporary data
     if (isIframeEventRead === false) {
       const liste1 = "ornekEleman1*ornekEleman2";
       const liste1D = liste1.split("*");
@@ -80,7 +82,7 @@ class App extends React.Component {
             id: 'column-1',
             title: ' ',
             taskIds: taskIdsList1
-            //taskIds arrayi ile ownership saglanmis oluyor => task1-2-3 column1 icerisinde
+            //ownership is provided with taskIds
           },
 
           'column-2': {
@@ -98,13 +100,14 @@ class App extends React.Component {
       const columnIki = Array.from(this.state.columns["column-2"].taskIds);
       columnIki.forEach(element => this.state.tasks[element].isDragDisabled = true);
     }
-
   }
 
   componentDidMount() {
     window.addEventListener("message", this.handleIframeTask.bind(this), false);
   };
 
+  //this part updates list elements
+  //with the data provided with iframe
   handleIframeTask = (e) => {
     isIframeEventRead = true;
     var eventDataArr = JSON.stringify(e.data).split(",");
@@ -172,7 +175,6 @@ class App extends React.Component {
           id: 'column-1',
           title: ' ',
           taskIds: taskIdsList1
-          //taskIds arrayi ile ownership saglanmis oluyor => task1-2-3 column1 icerisinde
         },
 
         'column-2': {
@@ -207,19 +209,17 @@ class App extends React.Component {
       if (!combine && !destination) {
         return;
       }
-      //user droppable'i basladigi yere geri birakti
+      //if user drops the droppable where is was
       if (!combine && destination.droppableId === source.droppableId &&
         destination.index === source.index) {
         return;
       }
 
-      //******bir listeden digerine gecis******
+      //one list to another
       if (combine && quizType === "Combine") {
-        //console.log("quiztype combine");
         const start = this.state.columns[source.droppableId];
         //const finish = this.state.columns[combine.droppableId];
         const combineTaskIds = Array.from(start.taskIds);
-        // icindeki text: this.state.tasks[eleman].content
         var eleman = combineTaskIds[source.index];
         var textLeft = this.state.tasks[eleman].num;
         console.log(this.state.tasks[eleman].num);
@@ -230,7 +230,6 @@ class App extends React.Component {
         this.state.tasks[eleman2].altContent = textLeft;
         this.state.tasks[eleman2].altContentId = textLeftId;
         console.log("burda"+JSON.stringify(this.state.tasks[eleman2]));
-        //soldakini silmek yerine, sagdaki combine edilen elemanin altına bir text ekle
         const newColumn = {
           ...start,
           taskIds: combineTaskIds,
@@ -310,7 +309,7 @@ class App extends React.Component {
     return;
   }
 
-  //DragDropContext'te 3 adet callback var
+  //3 callbacks in drapdropcontext
   //ondragend,ondragstart,ondragupdate
   render() {
 
@@ -394,7 +393,6 @@ class App extends React.Component {
             const column = this.state.columns[columnId];
             const tasks = column.taskIds.map(taskId => this.state.tasks[taskId]);
 
-            //// <= olma durumu da var
             var isDropDisabled = index < this.state.homeIndex;
             if (quizType === "Combine") {
               isDropDisabled = index <= this.state.homeIndex;

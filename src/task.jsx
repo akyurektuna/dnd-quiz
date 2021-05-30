@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Draggable } from 'react-beautiful-dnd';
 import {quizType} from './index.js';
 
+//task content is wrapped in this container
 const Container = styled.div`
 border: 1px solid lightgrey;
 border-radius: 2px;
@@ -18,9 +19,8 @@ position: relative;
     background-color: #dfc6f1;
 }
 `;
-//task contenti bu container icerisinde wrap ediyoruz
 
-//answer sadece quizType:combine icin olmali
+// answer should be used in quizType: combine cases
 const Answer = styled.div`
 width: 20px;
 height: 20px;
@@ -37,9 +37,8 @@ text-align: center;
 
 export default class Task extends React.Component {
     render() {
-        //quizType: combine icin
-        //dragdisabled durumunu ikinci listedeki tum elemanlar icin yap
-        //whichColumn = 2 olan tum tasklar icin drag disabled
+        //for the quizType:combine
+        //drag is disabled for all the tasks that have whichColumn = 2 
         var isDragDisabled = this.props.task.whichColumn > '1';
         
         if(quizType === "Reorder"){
